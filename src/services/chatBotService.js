@@ -770,7 +770,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
                         "elements": [
                             {
                                 "media_type": "video",
-                                "url": "https://res.cloudinary.com/dt0kv3yml/video/upload/v1692270858/230254d6366a8c02e8688343fccc7201_zsmmwb.mp4",
+                                "url": "https://www.facebook.com/haryphamdev/videos/635394223852656/",
                                 "buttons": [
                                     {
                                         "type": "web_url",
