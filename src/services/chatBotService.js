@@ -7,6 +7,26 @@ const URL_SHOW_ROOM_GIF = "https://media3.giphy.com/media/TGcD6N8uzJ9FXuDV3a/gip
 const URL_SALAD_GIF = "https://media0.giphy.com/media/9Vk8qP9EmWB8FePccb/giphy.gif?cid=ecf05e478d0c93d69e72264c8ebbf58a9a1d7ae294754131&rid=giphy.gif";
 const URL_SHOW_FISH = "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/ztjeouq2jlas5b2zxksm";
 const URL_SHOW_CLASSIC = "https://ardo.com/files/attachments/.10202/w1440h700q85_AZ1.jpg";
+
+
+
+    const { Configuration, OpenAIApi } = require("openai");
+    const configuration = new Configuration({
+        apiKey: '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',
+        });
+    const openai = new OpenAIApi(configuration);
+    async function generateResponse() {
+        const response = await openai.createCompletion({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            { role: 'system', content: 'You are a helpful assistant.' },
+            { role: 'user', content: 'với câu hỏi: công việc mới của tôi sẽ như thế nào? khi bóc được lá bài tarot The Devil, Temperance thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề' }
+          ],
+        });
+      
+        console.log(response.data.choices[0].message.content); // In ra nội dung phản hồi từ mô hình
+      }
+
 let getFacebookUsername = (sender_psid) => {
     return new Promise((resolve, reject) => {
         // Send the HTTP request to the Messenger Platform
@@ -750,7 +770,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
                         "elements": [
                             {
                                 "media_type": "video",
-                                "url": "https://photos.app.goo.gl/TuKWiEXxGtxLBPkH7",
+                                "url": "https://ln5.sync.com/dl/dc68cbfc0/tff8wumd-weknng4q-2pz6wjae-9x6xuadu",
                                 "buttons": [
                                     {
                                         "type": "web_url",

@@ -7,11 +7,7 @@ import Data from "../controllers/crawlData";
 
 require("dotenv").config();
 
-const { Configuration, OpenAIApi } = require("openai");
-const configuration = new Configuration({
-  apiKey: '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',
-});
-const openai = new OpenAIApi(configuration);
+
 
 let router = express.Router();
 
@@ -22,7 +18,7 @@ let initWebRoutes = (app) => {
     router.get("/tarot", (req, res) => {
         res.send(Data)
     });
-    router.get("/query", homepageController.queryAPI );
+    router.get("/query", chatBotController.generateResponse );
 
 
     //

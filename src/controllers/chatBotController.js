@@ -14,6 +14,30 @@ let user = {
     quantity: "",
     createdAt: ""
 };
+const { Configuration, OpenAIApi } = require('openai');
+
+const configuration = new Configuration({
+  apiKey: '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',
+});
+
+const openai = new OpenAIApi(configuration);
+
+async function generateResponse(req, res) {
+  const response = await openai.createChatCompletion({
+    model: 'gpt-3.5-turbo',
+    messages: [
+      { role: 'system', content: 'You are a helpful assistant.' },
+      { role: 'user', content: 'với câu hỏi: công việc mới của tôi sẽ như thế nào? khi bóc được lá bài tarot The Devil, Temperance thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề' },
+    ],
+  });
+
+  return res.send(response.data.choices[0].message.content) ;
+  
+}
+
+      
+       
+
 
 let postWebhook = (req, res) => {
     // Parse the request body from the POST
@@ -286,5 +310,6 @@ function callSendAPI(sender_psid, response) {
 
 module.exports = {
     postWebhook: postWebhook,
-    getWebhook: getWebhook
+    getWebhook: getWebhook,
+    generateResponse: generateResponse
 };
