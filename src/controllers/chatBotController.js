@@ -214,7 +214,7 @@ let handlePostback = async (sender_psid, received_postback) => {
     await chatBotService.markMessageSeen(sender_psid);
     switch (payload) {
         case "GET_STARTED":
-        case "START":
+        case "RESTART_CONVERSATION":
             //get facebook username
             let username = await chatBotService.getFacebookUsername(sender_psid);
             user.name = username;

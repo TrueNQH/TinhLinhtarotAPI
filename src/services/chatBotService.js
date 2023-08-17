@@ -770,7 +770,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
                         "elements": [
                             {
                                 "media_type": "video",
-                                "url": "https://ln5.sync.com/dl/dc68cbfc0/tff8wumd-weknng4q-2pz6wjae-9x6xuadu",
+                                "url": "https://res.cloudinary.com/dt0kv3yml/video/upload/v1692270858/230254d6366a8c02e8688343fccc7201_zsmmwb.mp4",
                                 "buttons": [
                                     {
                                         "type": "web_url",
@@ -780,7 +780,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
                                     {
                                         "type": "postback",
                                         "title": "Xem Chiêm Tinh",
-                                        "payload": "START"
+                                        "payload": "RESTART_CONVERSATION"
                                     }
                                 ]
                             }
