@@ -739,7 +739,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
     return new Promise (async (resolve, reject) => {
         try{
             let response1 = {
-                "text": "Sorry, I'm just a bot, man ^^ \nYou can test me with all these buttons or try to make a reservation.\n\nThis video may help you to understand me 😉"
+                "text": 'Yo cả nhà GenZ cuồng chiêm tinh! Đã bao giờ bạn tự hỏi, nếu chúng ta có thể đoán trước tương lai như là việc đoán xem ai sẽ reply tin nhắn trước, liệu cuộc sống có dễ dàng hơn không? 🌌🔮 \n \nWell, đừng lo, vì chúng tôi ở đây để "predict" những vibes tương lai của bạn bằng cách đảo bài Tarot cùng mấy "code" bí mật từ dải mây đen. Nếu bạn muốn biết liệu có nên order thêm pizza hay tiết kiệm tiền để mua vé concert của idol, thì đừng ngần ngại "tap" ngay vào nút "Xem Chiêm Tinh"! 🍕🎶 \nRemember, đời không phải lúc nào cũng clear và easy như việc scroll mạng xã hội, nhưng ít nhất bạn sẽ có thêm một lý do để cười "LOL" và nói: "Ờ, chiêm tinh cũng hay phết đấy chứ!" 😄🌟'
             };
             //send a media template
             let response2 = {
@@ -750,7 +750,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
                         "elements": [
                             {
                                 "media_type": "video",
-                                "url": "https://www.facebook.com/haryphamdev/videos/635394223852656/",
+                                "url": "https://photos.app.goo.gl/TuKWiEXxGtxLBPkH7",
                                 "buttons": [
                                     {
                                         "type": "web_url",
@@ -759,8 +759,8 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
                                     },
                                     {
                                         "type": "postback",
-                                        "title": "Start over",
-                                        "payload": "RESTART_CONVERSATION"
+                                        "title": "Xem Chiêm Tinh",
+                                        "payload": "START"
                                     }
                                 ]
                             }
