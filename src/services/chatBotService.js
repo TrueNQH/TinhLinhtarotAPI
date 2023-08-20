@@ -50,7 +50,10 @@ let getFacebookUsername = (sender_psid) => {
 let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response_first = { "text": `Welcome ${username} to HaryPhamDev's Restaurant` };
+            let response_first = { "text": `Yo cả nhà GenZ cuồng chiêm tinh! Đã bao giờ bạn tự hỏi, nếu chúng ta có thể đoán trước tương lai như là việc đoán xem ai sẽ reply tin nhắn trước, liệu cuộc sống có dễ dàng hơn không? 🌌🔮 
+ 
+            Well, đừng lo, vì chúng tôi ở đây để "predict" những vibes tương lai của bạn bằng cách đảo bài Tarot cùng mấy "code" bí mật từ dải mây đen. Nếu bạn muốn biết liệu có nên order thêm pizza hay tiết kiệm tiền để mua vé concert của idol, thì đừng ngần ngại "tap" ngay vào nút "Xem Chiêm Tinh"! 🍕🎶 
+            Remember, đời không phải lúc nào cũng clear và easy như việc scroll mạng xã hội, nhưng ít nhất bạn sẽ có thêm một lý do để cười "LOL" và nói: "Ờ, chiêm tinh cũng hay phết đấy chứ!" 😄🌟` };
             let response_second = {
                 "attachment": {
                     "type": "template",
@@ -58,23 +61,19 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
                         "template_type": "generic",
                         "elements": [
                             {
-                                "title": "HaryPhamDev 's restaurant",
-                                "subtitle": "My restaurant is legendary, its classic wine collection equally so.",
-                                "image_url": "https://bit.ly/imageToSend",
+                                "title": "Tiênn tri zô triii",
+                                "subtitle": "Ở đây có xem chiêm tinh cho bạn nèe",
+                                "image_url": "https://res.cloudinary.com/dt0kv3yml/image/upload/v1692518329/85c41de6078dc52c30666a7b9aeea7d5_xp0mag.gif",
                                 "buttons": [
                                     {
                                         "type": "postback",
-                                        "title": "SHOW MAIN MENU",
+                                        "title": "XEM CHIEM TINH",
                                         "payload": "MAIN_MENU",
                                     },
+                                    
                                     {
                                         "type": "postback",
-                                        "title": "RESERVE A TABLE",
-                                        "payload": "RESERVE_TABLE",
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "GUIDE TO USE THIS BOT",
+                                        "title": "XEM CÁCH SỬ DỤNG",
                                         "payload": "GUIDE_BOT",
                                     }
                                 ],
@@ -109,9 +108,9 @@ let sendMainMenu = (sender_psid) => {
                         "template_type": "generic",
                         "elements": [
                             {
-                                "title": "Our menus",
-                                "subtitle": "We are pleased to offer you a wide-range of menu for lunch or dinner.",
-                                "image_url": "https://bit.ly/imageMenu",
+                                "title": "XEM TỔNG QUAN THÁNG TỚI",
+                                "subtitle": "NHẤN CHỌN CÁC GÓI NHÉ BẠN IUU 😘",
+                                "image_url": "https://res.cloudinary.com/dt0kv3yml/image/upload/v1692521421/45ca6a71f7530d8c8fbe82b614b893e0_y2islb.jpg",
                                 "buttons": [
                                     {
                                         "type": "postback",
@@ -132,26 +131,26 @@ let sendMainMenu = (sender_psid) => {
                             },
 
                             {
-                                "title": "Hours",
-                                "subtitle": "MON-FRI 10AM - 11PM  | SAT 5PM - 10PM | SUN 5PM - 9PM",
-                                "image_url": " https://bit.ly/imageOpening",
+                                "title": "CHUYỆN TÌNH CẢM CỦA BẠN SẮP TỚI SẼ NHƯ THẾ NÀO?",
+                                "subtitle": "XEM CHUYỆN TÌNH CẢM CỦA BẠN, NGƯỜI ẤY SUY NGHĨ GÌ VỀ BẠN? \n KHI NÀO THÌ 2 BẠN GẶP NHAU?",
+                                "image_url": " https://res.cloudinary.com/dt0kv3yml/image/upload/v1692521421/7d42cfdf2ea9fc63802ccea90aae732c_rahexl.jpg",
                                 "buttons": [
                                     {
                                         "type": "postback",
-                                        "title": "RESERVE A TABLE",
+                                        "title": "XEM",
                                         "payload": "RESERVE_TABLE",
                                     }
                                 ],
                             },
 
                             {
-                                "title": "Banquet Rooms",
-                                "subtitle": "Restaurant accommodates up to 300 seated guests and similar at cocktail receptions",
-                                "image_url": " https://bit.ly/imageShowRooms",
+                                "title": "CÔNG VIỆC",
+                                "subtitle": "cÔNG VIỆC CỦA BẠN NĂM NAY NHƯ THẾ NÀO? ",
+                                "image_url": " https://res.cloudinary.com/dt0kv3yml/image/upload/v1692521419/b60c7dbb493bdb3392776e3af55de661_uigdfe.jpg",
                                 "buttons": [
                                     {
                                         "type": "postback",
-                                        "title": "SHOW ROOMS",
+                                        "title": "XEM",
                                         "payload": "SHOW_ROOMS",
                                     }
                                 ],
@@ -759,31 +758,33 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
     return new Promise (async (resolve, reject) => {
         try{
             let response1 = {
-                "text": 'Yo cả nhà GenZ cuồng chiêm tinh! Đã bao giờ bạn tự hỏi, nếu chúng ta có thể đoán trước tương lai như là việc đoán xem ai sẽ reply tin nhắn trước, liệu cuộc sống có dễ dàng hơn không? 🌌🔮 \n \nWell, đừng lo, vì chúng tôi ở đây để "predict" những vibes tương lai của bạn bằng cách đảo bài Tarot cùng mấy "code" bí mật từ dải mây đen. Nếu bạn muốn biết liệu có nên order thêm pizza hay tiết kiệm tiền để mua vé concert của idol, thì đừng ngần ngại "tap" ngay vào nút "Xem Chiêm Tinh"! 🍕🎶 \nRemember, đời không phải lúc nào cũng clear và easy như việc scroll mạng xã hội, nhưng ít nhất bạn sẽ có thêm một lý do để cười "LOL" và nói: "Ờ, chiêm tinh cũng hay phết đấy chứ!" 😄🌟'
+                "text": 'Vui lòng thao tác với cá nút nhấn!!!'
             };
             //send a media template
             let response2 = {
                 "attachment": {
                     "type": "template",
                     "payload": {
-                        "template_type": "media",
+                        "template_type": "generic",
                         "elements": [
                             {
-                                "media_type": "video",
-                                "url": "https://www.facebook.com/haryphamdev/videos/635394223852656/",
+                                "title": "Our menus",
+                                "subtitle": "We are pleased to offer you a wide-range of menu for lunch or dinner.",
+                                "image_url": "https://res.cloudinary.com/dt0kv3yml/image/upload/v1692518329/85c41de6078dc52c30666a7b9aeea7d5_xp0mag.gif",
                                 "buttons": [
                                     {
-                                        "type": "web_url",
-                                        "url": "https://bit.ly/subscribe-haryphamdev",
-                                        "title": "Watch more!"
-                                    },
-                                    {
                                         "type": "postback",
-                                        "title": "Xem Chiêm Tinh",
-                                        "payload": "RESTART_CONVERSATION"
-                                    }
-                                ]
-                            }
+                                        "title": "XEM CHIÊM TINH",
+                                        "payload": "LUNCH_MENU",
+                                    },
+                                    
+                                ],
+                            },
+
+                            
+                           
+
+
                         ]
                     }
                 }

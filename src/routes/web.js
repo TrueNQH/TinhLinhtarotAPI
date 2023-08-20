@@ -20,7 +20,7 @@ let initWebRoutes = (app) => {
     });
     router.get("/query", chatBotController.generateResponse );
 
-
+    
     //
     router.get("/", homepageController.getHomepage);
     router.get("/webhook", chatBotController.getWebhook);
