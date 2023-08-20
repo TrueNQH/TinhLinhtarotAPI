@@ -393,7 +393,51 @@ let sendMessage = (sender_psid, response) => {
         }
     });
 };
+let sendMessageDefaultForTheBot = (sender_psid) => {
+    return new Promise (async (resolve, reject) => {
+        try{
+            let response1 = {
+                "text": "Sorry, I'm just a bot, man ^^ \nYou can test me with all these buttons or try to make a reservation.\n\nThis video may help you to understand me 😉"
+            };
+            //send a media template
+            let response2 = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "media",
+                        "elements": [
+                            {
+                                "media_type": "video",
+                                "url": "https://www.facebook.com/haryphamdev/videos/635394223852656/",
+                                "buttons": [
+                                    {
+                                        "type": "web_url",
+                                        "url": "https://bit.ly/subscribe-haryphamdev",
+                                        "title": "Watch more!"
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "Start over",
+                                        "payload": "RESTART_CONVERSATION"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            };
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, response1);
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, response2);
+            resolve("done");
+        }catch (e) {
+            reject(e);
+        }
+    });
+};
 module.exports = {
+    sendMessageDefaultForTheBot: sendMessageDefaultForTheBot,
     getFacebookUsername: getFacebookUsername,
     sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
     sendMainMenu: sendMainMenu,
