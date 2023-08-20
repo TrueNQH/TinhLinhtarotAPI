@@ -775,7 +775,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
                                     {
                                         "type": "postback",
                                         "title": "XEM CHIÊM TINH",
-                                        "payload": "LUNCH_MENU",
+                                        "payload": "MAIN_MENU",
                                     },
                                     
                                 ],
