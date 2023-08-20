@@ -105,6 +105,15 @@ let getWebhook = (req, res) => {
 
 // Handles messages events
 let handleMessage = async (sender_psid, message) => {
+    // message check
+    if (message.text == 'hi') {    
+        // Create the payload for a basic text message, which
+        // will be added to the body of our request to the Send API
+        response = {
+          "text": `You sent the message: "${message.text}". Now send me an attachment!`
+        }
+        callSendAPI(sender_psid, response)
+    }
     //checking quick reply
     if (message && message.quick_reply && message.quick_reply.payload) {
         if (message.quick_reply.payload === "SMALL" || message.quick_reply.payload === "MEDIUM" || message.quick_reply.payload === "LARGE") {
@@ -214,6 +223,10 @@ let handlePostback = async (sender_psid, received_postback) => {
     await chatBotService.markMessageSeen(sender_psid);
     switch (payload) {
         case "GET_STARTED":
+        case "RESTART":
+            await chatBotService.sendResponseWelcomeNewCustomer(username, sender_psid)
+
+            break;
         case "RESTART_CONVERSATION":
             //get facebook username
             let username = await chatBotService.getFacebookUsername(sender_psid);

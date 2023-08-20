@@ -114,19 +114,15 @@ let sendMainMenu = (sender_psid) => {
                                 "buttons": [
                                     {
                                         "type": "postback",
-                                        "title": "LUNCH MENU",
+                                        "title": "XEM",
                                         "payload": "LUNCH_MENU",
                                     },
                                     {
                                         "type": "postback",
-                                        "title": "DINNER MENU",
-                                        "payload": "DINNER_MENU",
+                                        "title": "QUAY LẠI",
+                                        "payload": "RESTART",
                                     },
-                                    {
-                                        "type": "postback",
-                                        "title": "PUB MENU",
-                                        "payload": "PUB_MENU",
-                                    }
+                                    
                                 ],
                             },
 
@@ -139,6 +135,11 @@ let sendMainMenu = (sender_psid) => {
                                         "type": "postback",
                                         "title": "XEM",
                                         "payload": "RESERVE_TABLE",
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "QUAY LẠI",
+                                        "payload": "RESTART",
                                     }
                                 ],
                             },
@@ -152,6 +153,11 @@ let sendMainMenu = (sender_psid) => {
                                         "type": "postback",
                                         "title": "XEM",
                                         "payload": "SHOW_ROOMS",
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "QUAY LẠI",
+                                        "payload": "RESTART",
                                     }
                                 ],
                             }
