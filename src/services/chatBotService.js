@@ -397,31 +397,33 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
     return new Promise (async (resolve, reject) => {
         try{
             let response1 = {
-                "text": "Sorry, I'm just a bot, man ^^ \nYou can test me with all these buttons or try to make a reservation.\n\nThis video may help you to understand me 😉"
+                "text": 'Vui lòng thao tác với cá nút nhấn!!!'
             };
             //send a media template
             let response2 = {
                 "attachment": {
                     "type": "template",
                     "payload": {
-                        "template_type": "media",
+                        "template_type": "generic",
                         "elements": [
                             {
-                                "media_type": "video",
-                                "url": "https://www.facebook.com/haryphamdev/videos/635394223852656/",
+                                "title": "Our menus",
+                                "subtitle": "We are pleased to offer you a wide-range of menu for lunch or dinner.",
+                                "image_url": "https://res.cloudinary.com/dt0kv3yml/image/upload/v1692518329/85c41de6078dc52c30666a7b9aeea7d5_xp0mag.gif",
                                 "buttons": [
                                     {
-                                        "type": "web_url",
-                                        "url": "https://bit.ly/subscribe-haryphamdev",
-                                        "title": "Watch more!"
-                                    },
-                                    {
                                         "type": "postback",
-                                        "title": "Start over",
-                                        "payload": "RESTART_CONVERSATION"
-                                    }
-                                ]
-                            }
+                                        "title": "XEM CHIÊM TINH",
+                                        "payload": "MAIN_MENU",
+                                    },
+                                    
+                                ],
+                            },
+
+                            
+                           
+
+
                         ]
                     }
                 }
@@ -436,6 +438,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
         }
     });
 };
+
 module.exports = {
     sendMessageDefaultForTheBot: sendMessageDefaultForTheBot,
     getFacebookUsername: getFacebookUsername,

@@ -108,18 +108,8 @@ let getWebhook = (req, res) => {
 
 let handleMessage = async (sender_psid, message) => {
     // message check
-    if(message.includes("/ask")) {
-        await chatBotService.generateResponse(message)
-    }
-    if (message == 'hi') {    
-        // Create the payload for a basic text message, which
-        // will be added to the body of our request to the Send API
-        response = {
-          "text": `You sent the message: "${message}". Now send me an attachment!`
-        }
-        await sendTypingOn(sender_psid);
-        await chatBotService.sendMessage(sender_psid, response)
-    }
+    
+    
     //checking quick reply
     if (message && message.quick_reply && message.quick_reply.payload) {
         if (message.quick_reply.payload === "SMALL" || message.quick_reply.payload === "MEDIUM" || message.quick_reply.payload === "LARGE") {
@@ -180,6 +170,9 @@ let handleMessage = async (sender_psid, message) => {
         await homepageService.sendResponseBye(sender_psid, locale);
     } else {
         //default reply
+        if(message.includes("/ask")) {
+            await chatBotService.generateResponse(message)
+        }
         await chatBotService.sendMessageDefaultForTheBot(sender_psid);
     }
 
