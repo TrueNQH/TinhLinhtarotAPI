@@ -117,7 +117,7 @@ let handleMessage = async (sender_psid, message) => {
         response = {
           "text": `You sent the message: "${message}". Now send me an attachment!`
         }
-        callSendAPI(sender_psid, response)
+        chatBotService.sendMessage(sender_psid, response)
     }
     //checking quick reply
     if (message && message.quick_reply && message.quick_reply.payload) {

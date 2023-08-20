@@ -170,6 +170,8 @@ let sendMainMenu = (sender_psid) => {
 let generateResponse = (message) => {
     return new Promise(async (resolve, reject) => {
         try {
+            await sendTypingOn(sender_psid);
+            
             const response =  openai.createChatCompletion({
                 model: 'gpt-3.5-turbo',
                 messages: [
