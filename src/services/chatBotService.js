@@ -1,6 +1,13 @@
 import request from "request";
 
 require("dotenv").config();
+const { Configuration, OpenAIApi } = require('openai');
+
+const configuration = new Configuration({
+  apiKey: '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',
+});
+
+const openai = new OpenAIApi(configuration);
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const URL_SHOW_ROOM_GIF = "https://media3.giphy.com/media/TGcD6N8uzJ9FXuDV3a/giphy.gif?cid=ecf05e47afe5be971d1fe6c017ada8e15c29a76fc524ac20&rid=giphy.gif";
@@ -10,22 +17,6 @@ const URL_SHOW_CLASSIC = "https://ardo.com/files/attachments/.10202/w1440h700q85
 
 
 
-    const { Configuration, OpenAIApi } = require("openai");
-    const configuration = new Configuration({
-        apiKey: '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',
-        });
-    const openai = new OpenAIApi(configuration);
-    async function generateResponse() {
-        const response = await openai.createCompletion({
-          model: 'gpt-3.5-turbo',
-          messages: [
-            { role: 'system', content: 'You are a helpful assistant.' },
-            { role: 'user', content: 'với câu hỏi: công việc mới của tôi sẽ như thế nào? khi bóc được lá bài tarot The Devil, Temperance thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề' }
-          ],
-        });
-      
-        console.log(response.data.choices[0].message.content); // In ra nội dung phản hồi từ mô hình
-      }
 
 let getFacebookUsername = (sender_psid) => {
     return new Promise((resolve, reject) => {
@@ -115,7 +106,7 @@ let sendMainMenu = (sender_psid) => {
                                     {
                                         "type": "postback",
                                         "title": "XEM",
-                                        "payload": "LUNCH_MENU",
+                                        "payload": "XEM",
                                     },
                                     {
                                         "type": "postback",
@@ -134,7 +125,7 @@ let sendMainMenu = (sender_psid) => {
                                     {
                                         "type": "postback",
                                         "title": "XEM",
-                                        "payload": "RESERVE_TABLE",
+                                        "payload": "XEM",
                                     },
                                     {
                                         "type": "postback",
@@ -152,7 +143,7 @@ let sendMainMenu = (sender_psid) => {
                                     {
                                         "type": "postback",
                                         "title": "XEM",
-                                        "payload": "SHOW_ROOMS",
+                                        "payload": "XEM",
                                     },
                                     {
                                         "type": "postback",
@@ -176,7 +167,26 @@ let sendMainMenu = (sender_psid) => {
     });
 
 };
-
+let generateResponse = (message) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response =  openai.createChatCompletion({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                  { role: 'system', content: 'You are a helpful assistant.' },
+                  { role: 'user', content: `với câu hỏi: ${message}? khi bóc được lá bài tarot The Devil, Temperance thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề` },
+                ],
+              });
+              let res = { text: response.data.choices[0].message.content };
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, res);
+        } catch (e) {
+            reject(e);
+        }
+    });
+    
+  
+}
 let sendLunchMenu = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -264,250 +274,19 @@ let sendLunchMenu = (sender_psid) => {
     });
 };
 
-let sendDinnerMenu = (sender_psid) => {
+
+
+let seenTarot = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response1 = {
-                "text": "Lump crab cocktail\n$25.00"
-            };
-            let response2 = {
-                "attachment": {
-                    "type": "image",
-                    "payload": {
-                        "url": "https://djfoodie.com/wp-content/uploads/Crab-Cocktail-3-800.jpg"
-                    }
-                }
-            };
-
-            let response3 = {
-                "text": "House cured salmon\n$16.00"
-            };
-            let response4 = {
-                "attachment": {
-                    "type": "image",
-                    "payload": {
-                        "url": "https://www.thespruceeats.com/thmb/rys3IyH2DB6Ma_r4IQ6emN-2jYw=/4494x3000/filters:fill(auto,1)/simple-homemade-gravlax-recipe-2216618_hero-01-592dadcba64743f98aa1f7a14f81d5b4.jpg"
-                    }
-                }
-            };
-
-            let response5 = {
-                "text": "Steamed Whole Maine Lobsters\n$35.00"
-            };
-            let response6 = {
-                "attachment": {
-                    "type": "image",
-                    "payload": {
-                        "url": "https://portcitydaily.com/wp-content/uploads/For-the-Shell-of-It.jpg"
-                    }
-                }
-            };
-
-            let response7 = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "button",
-                        "text": `Back to main menu or make a reservation ?`,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "SHOW MAIN MENU",
-                                "payload": "MAIN_MENU"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "RESERVE A TABLE",
-                                "payload": "RESERVE_TABLE",
-                            }
-                        ]
-                    }
-                }
-            };
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response1);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response2);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response3);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response4);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response5);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response6);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response7);
-
-            resolve("done");
-        } catch (e) {
-            reject(e);
-        }
-    });
-};
-
-let sendPubMenu = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let response1 = {
-                "text": "Hamburger with French Fries\n$19.50"
-            };
-            let response2 = {
-                "attachment": {
-                    "type": "image",
-                    "payload": {
-                        "url": "https://previews.123rf.com/images/genmike/genmike1411/genmike141100010/33951440-burger-and-french-fries.jpg"
-                    }
-                }
-            };
-
-            let response3 = {
-                "text": "Ham and Cheese on a Baguette as Salad or Sandwich\n$21.00"
-            };
-            let response4 = {
-                "attachment": {
-                    "type": "image",
-                    "payload": {
-                        "url": "https://s3-ap-southeast-1.amazonaws.com/v3-live.image.oddle.me/product/Blackforesthamcheesebfd18d.jpg"
-                    }
-                }
-            };
-
-            let response5 = {
-                "text": "Braised short rib salad\n$29.50"
-            };
-            let response6 = {
-                "attachment": {
-                    "type": "image",
-                    "payload": {
-                        "url": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/ribs_0.jpg?itok=bOf0t_NF"
-                    }
-                }
-            };
-
-            let response7 = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "button",
-                        "text": `Back to main menu or make a reservation ?`,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "SHOW MAIN MENU",
-                                "payload": "MAIN_MENU"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "RESERVE A TABLE",
-                                "payload": "RESERVE_TABLE",
-                            }
-                        ]
-                    }
-                }
-            };
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response1);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response2);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response3);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response4);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response5);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response6);
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response7);
-            resolve("done");
-        } catch (e) {
-            reject(e);
-        }
-    });
-};
-
-let sendAppetizer = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let response = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [
-                            {
-                                "title": "Little Neck Clams on the Half Shell",
-                                "subtitle": "Dozen - $20.00",
-                                "image_url": "https://bit.ly/appetizers1",
-                            },
-
-                            {
-                                "title": "Fresh Oysters",
-                                "subtitle": "1/2 Dozen - $21.00 | Dozen - $40.00",
-                                "image_url": "https://bit.ly/appetizers2",
-                            },
-
-                            {
-                                "title": "Lobster Salad",
-                                "subtitle": "Half Lobster with Avocado and Grapefruit",
-                                "image_url": "https://bit.ly/appetizers3",
-                            },
-
-                            {
-                                "title": "Go back",
-                                "image_url": " https://bit.ly/imageToSend",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "SHOW LUNCH MENU",
-                                        "payload": "BACK_TO_LUNCH_MENU",
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "BACK TO MAIN MENU",
-                                        "payload": "BACK_TO_MAIN_MENU",
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "RESERVE A TABLE",
-                                        "payload": "RESERVE_TABLE",
-                                    }
-                                ],
-                            }
-                        ]
-                    }
-                }
-            };
-
+            let username = await getFacebookUsername(sender_psid);
+            let response = { text: `Mời ${username} đặt câu hỏi theo dạng /ask\n Ví dụ: /ask tôi và người yêu tương lại gặp nhau trong hoàn cảnh nào?` };
             await sendTypingOn(sender_psid);
             await sendMessage(sender_psid, response);
         } catch (e) {
             reject(e);
         }
     });
-};
-
-let goBackToMainMenu = (sender_psid) => {
-    sendMainMenu(sender_psid);
-};
-
-let goBackToLunchMenu = (sender_psid) => {
-    sendLunchMenu(sender_psid);
 };
 
 let handleReserveTable = (sender_psid) => {
@@ -523,500 +302,6 @@ let handleReserveTable = (sender_psid) => {
     });
 };
 
-let handleShowRooms = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let response = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [
-                            {
-                                "title": "Bull Moose Room",
-                                "subtitle": "The room is suited for parties of up to 25 people",
-                                "image_url": "https://bit.ly/showRoom1",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "SHOW DESCRIPTION",
-                                        "payload": "SHOW_ROOM_DETAIL",
-                                    }
-                                ],
-                            },
-
-                            {
-                                "title": "Lillie Langstry Room",
-                                "subtitle": "The room is suited for parties of up to 35 people",
-                                "image_url": "https://bit.ly/showRoom2",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "SHOW DESCRIPTION",
-                                        "payload": "SHOW_ROOM_DETAIL",
-                                    }
-                                ],
-                            },
-
-                            {
-                                "title": "Lincoln Room",
-                                "subtitle": "The room is suited for parties of up to 45 people",
-                                "image_url": "https://bit.ly/showRoom3",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "SHOW DESCRIPTION",
-                                        "payload": "SHOW_ROOM_DETAIL",
-                                    }
-                                ],
-                            },
-
-                            {
-                                "title": "Go back",
-                                "image_url": " https://bit.ly/imageToSend",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "BACK TO MAIN MENU",
-                                        "payload": "BACK_TO_MAIN_MENU",
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "RESERVE A TABLE",
-                                        "payload": "RESERVE_TABLE",
-                                    }
-                                ],
-                            }
-                        ]
-                    }
-                }
-            };
-
-            //send a welcome message
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response);
-        } catch (e) {
-            reject(e);
-        }
-    });
-};
-
-let sendMessageAskingQuality = (sender_id) => {
-    let request_body = {
-        "recipient": {
-            "id": sender_id
-        },
-        "messaging_type": "RESPONSE",
-        "message": {
-            "text": "What is your party size ?",
-            "quick_replies": [
-                {
-                    "content_type": "text",
-                    "title": "1-2",
-                    "payload": "SMALL",
-                }, {
-                    "content_type": "text",
-                    "title": "2-5",
-                    "payload": "MEDIUM",
-                },
-                {
-                    "content_type": "text",
-                    "title": "more than 5",
-                    "payload": "LARGE",
-                }
-            ]
-        }
-    };
-
-    // Send the HTTP request to the Messenger Platform
-    request({
-        "uri": "https://graph.facebook.com/v17.0/me/messages",
-        "qs": { "access_token": PAGE_ACCESS_TOKEN },
-        "method": "POST",
-        "json": request_body
-    }, (err, res, body) => {
-        if (!err) {
-            console.log('message sent!')
-        } else {
-            console.error("Unable to send message:" + err);
-        }
-    });
-};
-
-let sendMessageAskingPhoneNumber = (sender_id) => {
-    let request_body = {
-        "recipient": {
-            "id": sender_id
-        },
-        "messaging_type": "RESPONSE",
-        "message": {
-            "text": "Thank you. And what's the best phone number for us to reach you at?",
-            "quick_replies": [
-                {
-                    "content_type": "user_phone_number",
-                }
-            ]
-        }
-    };
-
-    // Send the HTTP request to the Messenger Platform
-    request({
-        "uri": "https://graph.facebook.com/v17.0/me/messages",
-        "qs": { "access_token": PAGE_ACCESS_TOKEN },
-        "method": "POST",
-        "json": request_body
-    }, (err, res, body) => {
-        if (!err) {
-            console.log('message sent!')
-        } else {
-            console.error("Unable to send message:" + err);
-        }
-    });
-};
-
-let sendMessageDoneReserveTable = async (sender_id) => {
-    try {
-        let response = {
-            "attachment": {
-                "type": "image",
-                "payload": {
-                    "url": "https://bit.ly/giftDonalTrump"
-                }
-            }
-        };
-        await sendTypingOn(sender_id);
-        await sendMessage(sender_id, response);
-
-        //get facebook username
-        let username = await getFacebookUsername(sender_id);
-
-        //send another message
-        let response2 = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "button",
-                    "text": `Done! \nOur reservation team will contact you as soon as possible ${username}.\n \nWould you like to check our Main Menu?`,
-                    "buttons": [
-                        {
-                            "type": "postback",
-                            "title": "SHOW MAIN MENU",
-                            "payload": "MAIN_MENU"
-                        },
-                        {
-                            "type":"phone_number",
-                            "title":"☎ HOT LINE",
-                            "payload":"+911911"
-                        },
-                        {
-                            "type": "postback",
-                            "title": "START OVER",
-                            "payload": "RESTART_CONVERSATION"
-                        }
-                    ]
-                }
-            }
-        };
-        await sendTypingOn(sender_id);
-        await sendMessage(sender_id, response2);
-    } catch (e) {
-        console.log(e);
-    }
-};
-
-let sendNotificationToTelegram = (user) => {
-    return new Promise((resolve, reject) => {
-        try {
-            let request_body = {
-                chat_id: process.env.TELEGRAM_GROUP_ID,
-                parse_mode: "HTML",
-                text: `
-| --- <b>A new reservation</b> --- |
-| ------------------------------------------------|
-| 1. Username: <b>${user.name}</b>   |
-| 2. Phone number: <b>${user.phoneNumber}</b> |
-| 3. Time: <b>${user.time}</b> |
-| 4. Quantity: <b>${user.quantity}</b> |
-| 5. Created at: ${user.createdAt} |
-| ------------------------------------------------ |                           
-      `
-            };
-
-            // Send the HTTP request to the Telegram
-            request({
-                "uri": `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
-                "method": "POST",
-                "json": request_body
-            }, (err, res, body) => {
-                if (!err) {
-                    resolve('done!')
-                } else {
-                    reject("Unable to send message:" + err);
-                }
-            });
-        } catch (e) {
-            reject(e);
-        }
-    });
-};
-
-let sendMessageDefaultForTheBot = (sender_psid) => {
-    return new Promise (async (resolve, reject) => {
-        try{
-            let response1 = {
-                "text": 'Vui lòng thao tác với cá nút nhấn!!!'
-            };
-            //send a media template
-            let response2 = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [
-                            {
-                                "title": "Our menus",
-                                "subtitle": "We are pleased to offer you a wide-range of menu for lunch or dinner.",
-                                "image_url": "https://res.cloudinary.com/dt0kv3yml/image/upload/v1692518329/85c41de6078dc52c30666a7b9aeea7d5_xp0mag.gif",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "XEM CHIÊM TINH",
-                                        "payload": "MAIN_MENU",
-                                    },
-                                    
-                                ],
-                            },
-
-                            
-                           
-
-
-                        ]
-                    }
-                }
-            };
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response1);
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response2);
-            resolve("done");
-        }catch (e) {
-            reject(e);
-        }
-    });
-};
-
-let showRoomDetail = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try{
-            let response1 = {
-                "attachment": {
-                    "type": "image",
-                    "payload": {
-                        "url": URL_SHOW_ROOM_GIF
-                    }
-                }
-            };
-            let response2 = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "button",
-                        "text": `The rooms is suited for parties up to 45 people.`,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "SHOW MAIN MENU",
-                                "payload": "MAIN_MENU"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "RESERVE A TABLE",
-                                "payload": "RESERVE_TABLE",
-                            }
-                        ]
-                    }
-                }
-            };
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response1);
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response2);
-
-            resolve("done!");
-        }catch (e) {
-            reject(e);
-        }
-    })
-};
-
-let sendSalad = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try{
-            let response1 = {
-                "attachment": {
-                    "type": "image",
-                    "payload": {
-                        "url": URL_SALAD_GIF
-                    }
-                }
-            };
-            let response2 = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "button",
-                        "text": `Entree Salad \n$25.00`,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "SHOW MAIN MENU",
-                                "payload": "MAIN_MENU"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "RESERVE A TABLE",
-                                "payload": "RESERVE_TABLE",
-                            }
-                        ]
-                    }
-                }
-            };
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response1);
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response2);
-
-            resolve("done");
-        }catch (e) {
-            reject(e);
-        }
-    });
-};
-
-let sendFish = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try{
-            let response1 = {
-                "attachment": {
-                    "type": "image",
-                    "payload": {
-                        "url": URL_SHOW_FISH
-                    }
-                }
-            };
-            let response2 = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "button",
-                        "text": `Fish fry \n$60.00`,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "SHOW MAIN MENU",
-                                "payload": "MAIN_MENU"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "RESERVE A TABLE",
-                                "payload": "RESERVE_TABLE",
-                            }
-                        ]
-                    }
-                }
-            };
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response1);
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response2);
-
-            resolve("done");
-        }catch (e) {
-            reject(e);
-        }
-    });
-};
-
-let sendClassic = (sender_psid) => {
-    return new Promise(async (resolve, reject) => {
-        try{
-            let response1 = {
-                "attachment": {
-                    "type": "image",
-                    "payload": {
-                        "url": URL_SHOW_CLASSIC
-                    }
-                }
-            };
-            let response2 = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "button",
-                        "text": `Perfect oven baked fries \n$30.00`,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "SHOW MAIN MENU",
-                                "payload": "MAIN_MENU"
-                            },
-                            {
-                                "type": "postback",
-                                "title": "RESERVE A TABLE",
-                                "payload": "RESERVE_TABLE",
-                            }
-                        ]
-                    }
-                }
-            };
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response1);
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, response2);
-
-            resolve("done");
-        }catch (e) {
-            reject(e);
-        }
-    });
-};
-
-let sendMessage = (sender_psid, response) => {
-    return new Promise((resolve, reject) => {
-        try {
-            let request_body = {
-                "recipient": {
-                    "id": sender_psid
-                },
-                "message": response,
-            };
-
-            // Send the HTTP request to the Messenger Platform
-            request({
-                "uri": "https://graph.facebook.com/v17.0/me/messages",
-                "qs": { "access_token": PAGE_ACCESS_TOKEN },
-                "method": "POST",
-                "json": request_body
-            }, (err, res, body) => {
-                console.log(res)
-                console.log(body)
-                if (!err) {
-                    console.log("message sent!");
-                    resolve('done!')
-                } else {
-                    reject("Unable to send message:" + err);
-                }
-            });
-        } catch (e) {
-            reject(e);
-        }
-    });
-};
 
 let sendTypingOn = (sender_psid) => {
     return new Promise ((resolve, reject) => {
@@ -1075,28 +360,45 @@ let markMessageSeen = (sender_psid) => {
         }
     });
 };
+let sendMessage = (sender_psid, response) => {
+    return new Promise((resolve, reject) => {
+        try {
+            let request_body = {
+                "recipient": {
+                    "id": sender_psid
+                },
+                "message": response,
+            };
 
+            // Send the HTTP request to the Messenger Platform
+            request({
+                "uri": "https://graph.facebook.com/v17.0/me/messages",
+                "qs": { "access_token": PAGE_ACCESS_TOKEN },
+                "method": "POST",
+                "json": request_body
+            }, (err, res, body) => {
+                console.log(res)
+                console.log(body)
+                if (!err) {
+                    console.log("message sent!");
+                    resolve('done!')
+                } else {
+                    reject("Unable to send message:" + err);
+                }
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
 module.exports = {
     getFacebookUsername: getFacebookUsername,
     sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
     sendMainMenu: sendMainMenu,
     sendLunchMenu: sendLunchMenu,
-    sendDinnerMenu: sendDinnerMenu,
-    sendPubMenu: sendPubMenu,
-    sendAppetizer: sendAppetizer,
-    goBackToMainMenu: goBackToMainMenu,
-    goBackToLunchMenu: goBackToLunchMenu,
+    seenTarot: seenTarot,
     handleReserveTable: handleReserveTable,
-    handleShowRooms: handleShowRooms,
-    sendMessageAskingQuality: sendMessageAskingQuality,
-    sendMessageAskingPhoneNumber: sendMessageAskingPhoneNumber,
-    sendMessageDoneReserveTable: sendMessageDoneReserveTable,
-    sendNotificationToTelegram: sendNotificationToTelegram,
-    sendMessageDefaultForTheBot:sendMessageDefaultForTheBot,
-    showRoomDetail: showRoomDetail,
-    sendSalad: sendSalad,
-    sendFish: sendFish,
-    sendClassic:sendClassic,
+    generateResponse:generateResponse,
     markMessageSeen: markMessageSeen,
     sendTypingOn: sendTypingOn,
     sendMessage: sendMessage
