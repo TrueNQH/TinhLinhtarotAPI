@@ -1,3 +1,4 @@
+import axios from "axios";
 import request from "request";
 
 require("dotenv").config();
@@ -5,7 +6,7 @@ const { Configuration, OpenAIApi } = require('openai');
 const OPEN_AI_KEY = process.env.OPEN_AI_KEY;
 
 const configuration = new Configuration({
-  apiKey: OPEN_AI_KEY || "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",
+  apiKey: OPEN_AI_KEY || "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",
 });
 
 const openai = new OpenAIApi(configuration);
@@ -168,20 +169,14 @@ let sendMainMenu = (sender_psid) => {
 let generateResponse = (message) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let res1 = { text: `câu hỏi của bạn là: ${message}. Bọn mình đang tiến hành trả bài cho bạn, bạn chờ ít phút nhé ` };
-
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, res1);
-            const response =  openai.createChatCompletion({
-                model: 'gpt-3.5-turbo',
-                messages: [
-                  { role: 'system', content: 'You are a helpful assistant.' },
-                  { role: 'user', content: `với câu hỏi: ${message}? khi bóc được lá bài tarot The Devil, Temperance thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề` },
-                ],
-              });
-              let res = { text: response.data.choices[0].message.content };
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, res);
+            axios.post('https://tinhlinhtarotapi-tzgc.onrender.com/query', message)
+            .then((response) => {
+            let res1 = { text: response };
+            sendTypingOn(sender_psid);
+            sendMessage(sender_psid, res1);
+            })
+            .catch(error => console.log(error))
+            
         } catch (e) {
             reject(e);
         }

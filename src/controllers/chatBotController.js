@@ -1,6 +1,6 @@
 require("dotenv").config();
 import request from "request";
-import moment from "moment";
+
 import chatBotService from "../services/chatBotService";
 import homepageService from "../services/homepageService";
 
@@ -111,8 +111,11 @@ let handleMessage = async (sender_psid, message) => {
     // message check
     
     if(message.text.includes("/ask")) {
-        
-        await chatBotService.generateResponse(message.text)
+        let message = {
+            'ask': message.text,
+            'card': 'Justice, The Fool'
+        }
+        await chatBotService.generateResponse(message)
     } else {
     await chatBotService.sendMessageDefaultForTheBot(sender_psid);
 

@@ -4,6 +4,8 @@ import homepageController from "../controllers/homepageController";
 import chatBotController from "../controllers/chatBotController";
 import chatBotService from "../services/chatBotService";
 import Data from "../controllers/crawlData";
+import openAiResponse from "./openAiResponse";
+
 
 require("dotenv").config();
 
@@ -18,7 +20,7 @@ let initWebRoutes = (app) => {
     router.get("/tarot", (req, res) => {
         res.send(Data)
     });
-    router.get("/query", chatBotController.generateResponse );
+    router.post("/query", openAiResponse.query );
 
     
     //
