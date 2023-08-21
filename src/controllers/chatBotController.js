@@ -111,11 +111,8 @@ let handleMessage = async (sender_psid, message) => {
     // message check
     
     if(message.text.includes("/ask")) {
-        let message = {
-            'ask': message.text,
-            'card': 'Justice, The Fool'
-        }
-        await chatBotService.generateResponse(message)
+        console.log(message.text);
+        await chatBotService.generateResponse(message.text)
     } else {
     await chatBotService.sendMessageDefaultForTheBot(sender_psid);
 

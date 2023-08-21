@@ -167,7 +167,7 @@ let sendMainMenu = (sender_psid) => {
     });
 
 };
-let generateResponse = (message) => {
+let generateResponseAPI = (message) => {
     return new Promise(async (resolve, reject) => {
         try {
             axios.post('https://tinhlinhtarotapi-tzgc.onrender.com/query', message)
@@ -177,6 +177,31 @@ let generateResponse = (message) => {
             await sendMessage(sender_psid, res1);
             })
             .catch(error => console.log(error))
+            
+        } catch (e) {
+            reject(e);
+        }
+    });
+    
+  
+}
+let generateResponse = (messages) => {
+    return new Promise(async (resolve, reject) => {
+        const response = await openai.createChatCompletion({
+            model: 'gpt-3.5-turbo',
+            messages: [
+              { role: 'system', content: 'You are a helpful assistant.' },
+              { role: 'user', content: `với câu hỏi: ${messages}? khi bóc được lá bài tarot Justice, The Fool thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề` },
+            ],
+          });
+        try {
+            await sendTypingOn(sender_psid);
+
+            
+              let mes1 = {text: response.data.choices[0].message.content}
+              await sendMessage(sender_psid, mes1);
+            resolve("done");
+
             
         } catch (e) {
             reject(e);
