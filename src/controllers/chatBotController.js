@@ -170,10 +170,7 @@ let handleMessage = async (sender_psid, message) => {
         await homepageService.sendResponseBye(sender_psid, locale);
     } else {
         //default reply
-        if(message.includes("/ask")) {
-            console.log(message);
-             chatBotService.generateResponse(message)
-        }
+        
         await chatBotService.sendMessageDefaultForTheBot(sender_psid);
     }
 
