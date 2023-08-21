@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import request from "request";
 
 require("dotenv").config();
@@ -167,38 +167,24 @@ let sendMainMenu = (sender_psid) => {
     });
 
 };
-let generateResponseAPI = (message) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            axios.post('https://tinhlinhtarotapi-tzgc.onrender.com/query', message)
-            .then(async (response) => {
-            let res1 = { text: response };
-            await sendTypingOn(sender_psid);
-            await sendMessage(sender_psid, res1);
-            })
-            .catch(error => console.log(error))
-            
-        } catch (e) {
-            reject(e);
-        }
-    });
-    
-  
-}
+
 let generateResponse = (messages,sender_psid) => {
     return new Promise(async (resolve, reject) => {
-        const response = await openai.createChatCompletion({
-            model: 'gpt-3.5-turbo',
-            messages: [
-              { role: 'system', content: 'You are a helpful assistant.' },
-              { role: 'user', content: `với câu hỏi: ${messages}? khi bóc được lá bài tarot Justice, The Fool thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề` },
-            ],
-          });
+        
         try {
-            
-
+            const response = await openai.createChatCompletion({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                  { role: 'system', content: 'You are a helpful assistant.' },
+                  { role: 'user', content: `với câu hỏi: ${messages}? khi bóc được lá bài tarot Justice, The Fool thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề` },
+                ],
+              });
+            console.log("đã chạy tới đây");
             await sendTypingOn(sender_psid);
+            console.log("đã chạy tới đây 2");
+
               let mes1 = {text: response.data.choices[0].message.content}
+            console.log("đã chạy tới đây 3");
               
               await sendMessage(sender_psid, mes1);
             resolve("done");
