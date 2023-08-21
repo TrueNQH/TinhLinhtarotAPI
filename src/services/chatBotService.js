@@ -170,10 +170,10 @@ let generateResponse = (message) => {
     return new Promise(async (resolve, reject) => {
         try {
             axios.post('https://tinhlinhtarotapi-tzgc.onrender.com/query', message)
-            .then((response) => {
+            .then(async (response) => {
             let res1 = { text: response };
-            sendTypingOn(sender_psid);
-            sendMessage(sender_psid, res1);
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, res1);
             })
             .catch(error => console.log(error))
             
