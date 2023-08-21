@@ -6,6 +6,7 @@ import homepageService from "../services/homepageService";
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+const OPEN_AI_KEY = process.env.OPEN_AI_KEY;
 
 let user = {
     name: "",
@@ -17,7 +18,7 @@ let user = {
 const { Configuration, OpenAIApi } = require('openai');
 
 const configuration = new Configuration({
-  apiKey: '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',
+  apiKey: OPEN_AI_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
