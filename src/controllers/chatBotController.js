@@ -171,7 +171,8 @@ let handleMessage = async (sender_psid, message) => {
     } else {
         //default reply
         if(message.includes("/ask")) {
-            await chatBotService.generateResponse(message)
+            console.log(message);
+             chatBotService.generateResponse(message)
         }
         await chatBotService.sendMessageDefaultForTheBot(sender_psid);
     }
