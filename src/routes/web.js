@@ -12,15 +12,26 @@ require("dotenv").config();
 
 
 let router = express.Router();
-
+function getRandomElements(array, count) {
+    const shuffledArray = [...array];
+    
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    
+    return shuffledArray.slice(0, count);
+  }
 let initWebRoutes = (app) => {
     
 
     // test connect database and generate tarrot
     router.get("/tarot", (req, res) => {
-        res.send(Data)
+        let randomElements = getRandomElements(Data, 3);
+        let randomElementsString = randomElements.join(', ');
+        res.send(randomElementsString)
     });
-    router.post("/query", openAiResponse.query );
+    
 
     
     //

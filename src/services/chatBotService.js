@@ -167,16 +167,26 @@ let sendMainMenu = (sender_psid) => {
     });
 
 };
-
+function getRandomElements(array, count) {
+    const shuffledArray = [...array];
+    
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    
+    return shuffledArray.slice(0, count);
+  }
 let generateResponse = (messages,sender_psid) => {
     return new Promise(async (resolve, reject) => {
-        
+        let randomElements = getRandomElements(Data, 3);
+        let randomElementsString = randomElements.join(', ');
         try {
             const response = await openai.createChatCompletion({
-                model: 'gpt-3.5-turbo',
+                model: 'gpt-3.5-turbo-16k',
                 messages: [
                   { role: 'system', content: 'You are a helpful assistant.' },
-                  { role: 'user', content: `với câu hỏi: ${messages}? khi bóc được lá bài tarot Justice, The Fool thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề` },
+                  { role: 'user', content: `với câu hỏi: ${messages}? khi bóc được lá bài tarot ${randomElementsString} thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề` },
                 ],
               });
             console.log("đã chạy tới đây");

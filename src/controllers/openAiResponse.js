@@ -8,6 +8,7 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
+
 module.exports = {
     query: (req, res) => {
         if(req.body=={}) {

@@ -3,7 +3,7 @@ import request from "request";
 
 import chatBotService from "../services/chatBotService";
 import homepageService from "../services/homepageService";
-
+const dataCards = require("../controllers/crawlData")
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const OPEN_AI_KEY = process.env.OPEN_AI_KEY;
@@ -111,6 +111,7 @@ let handleMessage = async (sender_psid, message) => {
     // message check
     
     if(message.text.includes("/ask")) {
+        
         console.log("day la console log ra xem thử",message.text);
         await chatBotService.generateResponse(message.text,sender_psid)
     } else {
