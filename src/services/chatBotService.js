@@ -180,8 +180,8 @@ let generateResponse = (messages,sender_psid) => {
                 ],
               });
             console.log("đã chạy tới đây");
-            await sendTypingOn(sender_psid);
-            console.log("đã chạy tới đây 2");
+            
+            
 
               let mes1 = {text: response.data.choices[0].message.content}
             console.log("đã chạy tới đây 3");
@@ -190,8 +190,15 @@ let generateResponse = (messages,sender_psid) => {
             resolve("done");
 
             
-        } catch (e) {
-            reject(e);
+        } catch (error) {
+            if (error.response && error.response.status === 429) {
+                console.log("Too many requests, waiting and retrying...");
+                await sleep(5000); // Đợi một khoảng thời gian
+                return generateResponse(messages, sender_psid); // Thử lại gọi hàm
+            } else {
+                console.error("Error:", error);
+                throw error; // Xử lý lỗi khác
+            }
         }
     });
     
