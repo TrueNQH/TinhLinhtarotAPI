@@ -184,8 +184,9 @@ let generateResponse = (messages,sender_psid) => {
             
 
               let mes1 = {text: response.data.choices[0].message.content}
-            console.log("đã chạy tới đây 3");
-              
+            
+              await sleep(2000)
+              console.log("đã hêt slepp");
               await sendMessage(sender_psid, mes1);
             resolve("done");
 
@@ -203,6 +204,9 @@ let generateResponse = (messages,sender_psid) => {
     });
     
   
+}
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 let sendLunchMenu = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
