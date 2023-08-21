@@ -109,8 +109,8 @@ let getWebhook = (req, res) => {
 let handleMessage = async (sender_psid, message) => {
     // message check
     
-    if(message.text=== "hi") {
-        await chatBotService.handleReserveTable(sender_psid)
+    if(message.text.includes("/ask")) {
+        await chatBotService.generateResponse(message.text)
     } else {
     await chatBotService.sendMessageDefaultForTheBot(sender_psid);
 
