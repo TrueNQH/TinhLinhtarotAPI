@@ -167,8 +167,10 @@ let sendMainMenu = (sender_psid) => {
 let generateResponse = (message) => {
     return new Promise(async (resolve, reject) => {
         try {
+            let res1 = { text: `câu hỏi của bạn là: ${message}. Bọn mình đang tiến hành trả bài cho bạn, bạn chờ ít phút nhé ` };
+
             await sendTypingOn(sender_psid);
-            
+            await sendMessage(sender_psid, res1);
             const response =  openai.createChatCompletion({
                 model: 'gpt-3.5-turbo',
                 messages: [

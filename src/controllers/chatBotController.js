@@ -110,6 +110,7 @@ let handleMessage = async (sender_psid, message) => {
     // message check
     
     if(message.text.includes("/ask")) {
+        await chatBotService.handleReserveTable(sender_psid)
         await chatBotService.generateResponse(message.text)
     } else {
     await chatBotService.sendMessageDefaultForTheBot(sender_psid);
