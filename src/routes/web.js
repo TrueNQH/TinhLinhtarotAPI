@@ -4,7 +4,7 @@ import homepageController from "../controllers/homepageController";
 import chatBotController from "../controllers/chatBotController";
 import chatBotService from "../services/chatBotService";
 import Data from "../controllers/crawlData";
-import openAiResponse from "./openAiResponse";
+import openAiResponse from "../controllers/openAiResponse";
 
 
 require("dotenv").config();

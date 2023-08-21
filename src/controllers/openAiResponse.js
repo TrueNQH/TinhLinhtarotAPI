@@ -4,7 +4,7 @@ const OPEN_AI_KEY = process.env.OPEN_AI_KEY;
 
 const configuration = new Configuration({
     organization: "org-50zRhKVuFYDGNCfmCtMW3s87",
-  apiKey: OPEN_AI_KEY || "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",
+  apiKey: OPEN_AI_KEY ,
 });
 
 const openai = new OpenAIApi(configuration);

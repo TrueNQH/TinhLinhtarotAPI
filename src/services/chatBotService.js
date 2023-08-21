@@ -169,13 +169,13 @@ let sendMainMenu = (sender_psid) => {
 let generateResponse = (message) => {
     return new Promise(async (resolve, reject) => {
         try {
-            // axios.post('https://tinhlinhtarotapi-tzgc.onrender.com/query', message)
-            // .then(async (response) => {
-            // let res1 = { text: response };
-            // await sendTypingOn(sender_psid);
-            // await sendMessage(sender_psid, res1);
-            // })
-            // .catch(error => console.log(error))
+            axios.post('https://tinhlinhtarotapi-tzgc.onrender.com/query', message)
+            .then(async (response) => {
+            let res1 = { text: response };
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, res1);
+            })
+            .catch(error => console.log(error))
             
         } catch (e) {
             reject(e);
