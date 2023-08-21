@@ -1,5 +1,6 @@
 
 import request from "request";
+import Data from "../controllers/crawlData";
 
 require("dotenv").config();
 const { Configuration, OpenAIApi } = require('openai');
