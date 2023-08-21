@@ -111,8 +111,8 @@ let handleMessage = async (sender_psid, message) => {
     // message check
     
     if(message.text.includes("/ask")) {
-        console.log(message.text);
-        await chatBotService.generateResponse(message.text)
+        console.log("day la console log ra xem thử",message.text);
+        await chatBotService.generateResponse(message.text,sender_psid)
     } else {
     await chatBotService.sendMessageDefaultForTheBot(sender_psid);
 

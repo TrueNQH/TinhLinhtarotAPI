@@ -185,7 +185,7 @@ let generateResponseAPI = (message) => {
     
   
 }
-let generateResponse = (messages) => {
+let generateResponse = (messages,sender_psid) => {
     return new Promise(async (resolve, reject) => {
         const response = await openai.createChatCompletion({
             model: 'gpt-3.5-turbo',
@@ -195,10 +195,11 @@ let generateResponse = (messages) => {
             ],
           });
         try {
-            await sendTypingOn(sender_psid);
-
             
+
+            await sendTypingOn(sender_psid);
               let mes1 = {text: response.data.choices[0].message.content}
+              
               await sendMessage(sender_psid, mes1);
             resolve("done");
 
