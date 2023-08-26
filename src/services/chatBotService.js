@@ -159,6 +159,7 @@ let sendMainMenu = (sender_psid) => {
                     }
                 }
             };
+            
             await sendTypingOn(sender_psid);
             await sendMessage(sender_psid, response);
             resolve("done");
