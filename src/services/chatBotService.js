@@ -42,10 +42,7 @@ let getFacebookUsername = (sender_psid) => {
 let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response_first = { "text": `Yo cả nhà GenZ cuồng chiêm tinh! Đã bao giờ bạn tự hỏi, nếu chúng ta có thể đoán trước tương lai như là việc đoán xem ai sẽ reply tin nhắn trước, liệu cuộc sống có dễ dàng hơn không? 🌌🔮 
- 
-            Well, đừng lo, vì chúng tôi ở đây để "predict" những vibes tương lai của bạn bằng cách đảo bài Tarot cùng mấy "code" bí mật từ dải mây đen. Nếu bạn muốn biết liệu có nên order thêm pizza hay tiết kiệm tiền để mua vé concert của idol, thì đừng ngần ngại "tap" ngay vào nút "Xem Chiêm Tinh"! 🍕🎶 
-            Remember, đời không phải lúc nào cũng clear và easy như việc scroll mạng xã hội, nhưng ít nhất bạn sẽ có thêm một lý do để cười "LOL" và nói: "Ờ, chiêm tinh cũng hay phết đấy chứ!" 😄🌟` };
+            let response_first = { "text": `Yo cả nhà GenZ cuồng chiêm tinh! Đã bao giờ bạn tự hỏi, nếu chúng ta có thể đoán trước tương lai như là việc đoán xem ai sẽ reply tin nhắn trước, liệu cuộc sống có dễ dàng hơn không? 🌌🔮 \n \n Well, đừng lo, vì chúng tôi ở đây để "predict" những vibes tương lai của bạn bằng cách đảo bài Tarot cùng mấy "code" bí mật từ dải mây đen. Nếu bạn muốn biết liệu có nên order thêm pizza hay tiết kiệm tiền để mua vé concert của idol, thì đừng ngần ngại "tap" ngay vào nút "Xem Chiêm Tinh"! 🍕🎶 \nRemember, đời không phải lúc nào cũng clear và easy như việc scroll mạng xã hội, nhưng ít nhất bạn sẽ có thêm một lý do để cười "LOL" và nói: "Ờ, chiêm tinh cũng hay phết đấy chứ!" 😄🌟` };
             let response_second = {
                 "attachment": {
                     "type": "template",
@@ -321,6 +318,18 @@ let seenTarot = (sender_psid) => {
         }
     });
 };
+let sendMessageShare = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let username = await getFacebookUsername(sender_psid);
+            let response = { text: `Cảm ơn ${username} đã tin tưởng và sử dụng dịch vụ, hãy share để mọi người cùng nhận thông điệp nèoo: \n http://m.me/61550499343479` };
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, response);
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
 
 let handleReserveTable = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
@@ -471,6 +480,58 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
         }
     });
 };
+let sendMessageThanks = (sender_psid) => {
+    return new Promise (async (resolve, reject) => {
+        try{
+            
+            //send a media template
+            let response2 = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [
+                            {
+                                "title": "Nếu những điều trên giúp ích cho bạn thì hãy cho mình xin feedback hoặc share cho bạn bè cùng trải nghiệm nhóo 😚",
+                                "subtitle": "FeedBack & Share 😚",
+                                "image_url": "https://res.cloudinary.com/dt0kv3yml/image/upload/v1693125571/80729aaa92b285f6f247f487ad5eb0ab_f4ml8k.jpg",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "FEEDBACK",
+                                        "payload": "FEEDBACK",
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "SHARE",
+                                        "payload": "SHARE",
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "QUAY LẠI",
+                                        "payload": "MAIN_MENU",
+                                    }
+                                    
+                                ],
+                            },
+
+                            
+                           
+
+
+                        ]
+                    }
+                }
+            };
+            
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, response2);
+            resolve("done");
+        }catch (e) {
+            reject(e);
+        }
+    });
+};
 
 
 module.exports = {
@@ -485,5 +546,7 @@ module.exports = {
     markMessageSeen: markMessageSeen,
     sendTypingOn: sendTypingOn,
     sendMessage: sendMessage,
+    sendMessage:sendMessage,
+    sendMessageThanks:sendMessageThanks
  
 };

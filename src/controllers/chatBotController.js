@@ -119,6 +119,8 @@ let handleMessage = async (sender_psid, message) => {
         
         console.log("day la console log ra xem thử",message.text);
         await chatBotService.generateResponse(message.text,sender_psid)
+        await chatBotService.sendMessageThanks(sender_psid)
+
     } else {
     await chatBotService.sendMessageDefaultForTheBot(sender_psid);
 
@@ -231,8 +233,8 @@ let handlePostback = async (sender_psid, received_postback) => {
         case "BACK_TO_MAIN_MENU":
             await chatBotService.goBackToMainMenu(sender_psid);
             break;
-        case "BACK_TO_LUNCH_MENU":
-            await chatBotService.goBackToLunchMenu(sender_psid);
+        case "SHARE":
+            await chatBotService.sendMessageShare(sender_psid);
             break;
 
         
