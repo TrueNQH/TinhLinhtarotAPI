@@ -111,8 +111,8 @@ let handleMessage = async (sender_psid, message) => {
     await chatBotService.markMessageSeen(sender_psid);
 
     // message check
-    if(message.text.includes("Bắt đầu")||message.text.includes("Xin chào") ) {
-    await chatBotService.sendResponseWelcomeNewCustomer(username, sender_psid);
+    if(message.text.includes("Bắt đầu")) {
+    await chatBotService.sendResponseWelcomeNewCustomer(sender_psid);
 
     }
     if(message.text.includes("/ask")) {
@@ -172,11 +172,11 @@ let handlePostback = async (sender_psid, received_postback) => {
     await chatBotService.markMessageSeen(sender_psid);
     switch (payload) {
         case "GET_STARTED":
-            await chatBotService.sendResponseWelcomeNewCustomer(username, sender_psid)
+            await chatBotService.sendResponseWelcomeNewCustomer(sender_psid)
 
             break;
         case "RESTART":
-            await chatBotService.sendResponseWelcomeNewCustomer(username, sender_psid)
+            await chatBotService.sendResponseWelcomeNewCustomer(sender_psid)
 
             break;
             case "XEM":
