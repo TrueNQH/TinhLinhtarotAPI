@@ -112,7 +112,7 @@ let handleMessage = async (sender_psid, message) => {
 
     // message check
     if(message.text=="Bắt đầu"||message.text=="Xin chào" ) {
-    await chatBotService.sendMessageGetStart(sender_psid);
+    await chatBotService.sendResponseWelcomeNewCustomer(username, sender_psid);
 
     }
     if(message.text.includes("/ask")) {
