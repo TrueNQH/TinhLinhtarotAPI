@@ -114,8 +114,7 @@ let handleMessage = async (sender_psid, message) => {
     if(message.text.includes("Bắt đầu")) {
     await chatBotService.sendResponseWelcomeNewCustomer(sender_psid);
 
-    }
-    if(message.text.includes("/ask")) {
+    }else if(message.text.includes("/ask")) {
         
         console.log("day la console log ra xem thử",message.text);
         await chatBotService.generateResponse(message.text,sender_psid)
