@@ -31,6 +31,7 @@ let initWebRoutes = (app) => {
         let randomElementsString = randomElements.join(', ');
         res.send(randomElementsString)
     });
+    router.get("/setup", homepageController.setupGetStart);
     
 
     

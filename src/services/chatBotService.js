@@ -424,6 +424,28 @@ let sendMessage = (sender_psid, response) => {
         }
     });
 };
+let sendMessageGetStart = (sender_psid) => {
+    return new Promise (async (resolve, reject) => {
+        try{
+            let response1 = {
+                "text": `Yo cả nhà Gen Z cuồng chiêm tinh! Đã bao giờ bạn tự hỏi, nếu chúng ta có thể đoán trước tương lai như là việc đoán xem ai sẽ reply tin nhắn trước, liệu cuộc sống có dễ dàng hơn không? 🌌🔮
+
+                Well, đừng lo, vì chúng tôi ở đây để "predict" những vibes tương lai của bạn bằng cách đảo bài Tarot cùng mấy "code" bí mật từ dải mây đen. Nếu bạn muốn biết liệu có nên order thêm pizza hay tiết kiệm tiền để mua vé concert của idol, thì đừng ngần ngại "tap" ngay vào nút "Xem Chiêm Tinh"! 🍕🎶
+                
+                Remember, đời không phải lúc nào cũng clear và easy như việc scroll mạng xã hội, nhưng ít nhất bạn sẽ có thêm một lý do để cười "LOL" và nói: "Ờ, chiêm tinh cũng hay phết đấy chứ!" 😄🌟`
+            };
+            //send a media template
+            
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, response1);
+            
+            resolve("done");
+        }catch (e) {
+            reject(e);
+        }
+    });
+}
+
 let sendMessageDefaultForTheBot = (sender_psid) => {
     return new Promise (async (resolve, reject) => {
         try{
@@ -470,6 +492,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
     });
 };
 
+
 module.exports = {
     sendMessageDefaultForTheBot: sendMessageDefaultForTheBot,
     getFacebookUsername: getFacebookUsername,
@@ -481,5 +504,6 @@ module.exports = {
     generateResponse:generateResponse,
     markMessageSeen: markMessageSeen,
     sendTypingOn: sendTypingOn,
-    sendMessage: sendMessage
+    sendMessage: sendMessage,
+    sendMessageGetStart:sendMessageGetStart
 };

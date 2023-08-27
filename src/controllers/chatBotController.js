@@ -108,8 +108,13 @@ let getWebhook = (req, res) => {
 // Handles messages events
 
 let handleMessage = async (sender_psid, message) => {
+    await chatBotService.markMessageSeen(sender_psid);
+
     // message check
-    
+    if(message.text=="Bắt đầu"||message.text=="Xin chào" ) {
+    await chatBotService.sendMessageGetStart(sender_psid);
+
+    }
     if(message.text.includes("/ask")) {
         
         console.log("day la console log ra xem thử",message.text);

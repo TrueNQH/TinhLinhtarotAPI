@@ -1,6 +1,7 @@
 import homepageService from "../services/homepageService";
 
-const { Configuration, OpenAIApi } = require("openai");
+
+import request from "request";
 
 require("dotenv").config();
 
@@ -31,28 +32,33 @@ let setUpUserFacebookProfile = async (req, res) => {
         })
     }
 };
-    let queryAPI = async (req,res) => {
-    const configuration = new Configuration({
-        apiKey: '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',
-});
-
-
-const openai = new OpenAIApi(configuration);
-
-const completion = await openai.createChatCompletion({
-  model: "gpt-3.5-turbo-16k",
-  messages: [{"role": "system", "content": "You are a helpful assistant."}, {role: "user", content: "với câu hỏi: công việc mới của tôi sẽ như thế nào? khi bóc được lá bài tarot The Devil, Temperance thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề"}],
-  
-});
-
-
-res.send(completion.data.choices[0].message.content.replace(/\n/g, ' '));
-
-    } 
+let setupGetStart = (req,result) =>  {
+    let request_body = {
+        "get_started": {"payload": "GET_STARTED"},
+             
+    
+      }
+    
+      // Send the HTTP request to the Messenger Platform
+      request({
+        "uri": `https://graph.facebook.com/v2.6/me/messenger_profile?access_token=${process.env.PAGE_ACCESS_TOKEN}`,
+        "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+        "method": "POST",
+        "json": request_body
+      }, (err, res, body) => {
+        console.log(body)
+        if (!err) {
+          console.log('-----!--')
+          result.send('setup success!')
+        } else {
+          console.error("setup false:" + err);
+        }
+      }); 
+}
 
 module.exports = {
     getHomepage: getHomepage,
     getFacebookUserProfile: getFacebookUserProfile,
     setUpUserFacebookProfile: setUpUserFacebookProfile,
-    queryAPI: queryAPI,
+    setupGetStart: setupGetStart,
 };
