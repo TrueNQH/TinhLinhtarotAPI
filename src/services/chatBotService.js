@@ -185,7 +185,7 @@ let generateResponse = (messages,sender_psid) => {
                 model: 'gpt-3.5-turbo-16k',
                 messages: [
                   { role: 'system', content: 'You are a helpful assistant.' },
-                  { role: 'user', content: `với câu hỏi: ${messages}? khi bóc được lá bài tarot ${randomElementsString} thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề` },
+                  { role: 'user', content: `với câu hỏi: ${messages}? khi bóc được lá bài tarot ${randomElementsString} thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề, câu trả lời của bạn như 1 chuyên gia không cần nêu ưu điểm của tarot ` },
                 ],
               });
             console.log("đã chạy tới đây");
@@ -450,7 +450,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
                         "elements": [
                             {
                                 "title": "Our menus",
-                                "subtitle": "We are pleased to offer you a wide-range of menu for lunch or dinner.",
+                                "subtitle": "Nhận thông điệp từ vụ trụ",
                                 "image_url": "https://res.cloudinary.com/dt0kv3yml/image/upload/v1692518329/85c41de6078dc52c30666a7b9aeea7d5_xp0mag.gif",
                                 "buttons": [
                                     {
@@ -494,7 +494,7 @@ let sendMessageThanks = (sender_psid) => {
                             {
                                 "title": "Nếu những điều trên giúp ích cho bạn thì hãy cho mình xin feedback hoặc share cho bạn bè cùng trải nghiệm nhóo 😚",
                                 "subtitle": "FeedBack & Share 😚",
-                                "image_url": "https://res.cloudinary.com/dt0kv3yml/image/upload/v1693125571/80729aaa92b285f6f247f487ad5eb0ab_f4ml8k.jpg",
+                                "image_url": "https://res.cloudinary.com/dt0kv3yml/image/upload/w_300,h_170/v1693125571/80729aaa92b285f6f247f487ad5eb0ab_f4ml8k.jpg",
                                 "buttons": [
                                     {
                                         "type": "postback",
@@ -546,7 +546,7 @@ module.exports = {
     markMessageSeen: markMessageSeen,
     sendTypingOn: sendTypingOn,
     sendMessage: sendMessage,
-    sendMessage:sendMessage,
+    sendMessageShare:sendMessageShare,
     sendMessageThanks:sendMessageThanks
  
 };

@@ -111,7 +111,7 @@ let handleMessage = async (sender_psid, message) => {
     await chatBotService.markMessageSeen(sender_psid);
 
     // message check
-    if(message.text=="Bắt đầu"||message.text=="Xin chào" ) {
+    if(message.text.includes("Bắt đầu")||message.text.includes("Xin chào") ) {
     await chatBotService.sendResponseWelcomeNewCustomer(username, sender_psid);
 
     }
