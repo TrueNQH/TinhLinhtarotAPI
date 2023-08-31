@@ -188,7 +188,7 @@ let generateResponse = (messages,sender_psid) => {
                   { role: 'user', content: `với câu hỏi: ${messages}? khi bóc được lá bài tarot ${randomElementsString} thì bạn sẽ trả lời như thế nào? giải thích thẳng vào vấn đề, câu trả lời của bạn như 1 chuyên gia không cần nêu ưu điểm của tarot ` },
                 ],
               });
-            console.log("đã chạy tới đây");
+            
             
             
 
