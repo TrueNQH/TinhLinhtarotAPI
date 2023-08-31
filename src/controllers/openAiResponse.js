@@ -37,7 +37,10 @@ module.exports = {
             ],
           });
         
-          return res.json(response.data.choices[0].message.content) ;
+          return res.json({
+            message: "thành công!",
+            response: response.data.choices[0].message.content
+          }) ;
         }
         
         
