@@ -5,10 +5,11 @@ import chatBotController from "../controllers/chatBotController";
 import chatBotService from "../services/chatBotService";
 import Data from "../controllers/crawlData";
 import openAiResponse from "../controllers/openAiResponse";
-
-
+const bodyParser = require('body-parser')
+const app = express()
 require("dotenv").config();
-
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 
 let router = express.Router();
@@ -32,6 +33,7 @@ let initWebRoutes = (app) => {
         res.send(randomElementsString)
     });
     router.get("/setup", homepageController.setupGetStart);
+    router.post("/query", openAiResponse.query)
     
 
     

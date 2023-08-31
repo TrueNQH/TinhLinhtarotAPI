@@ -36,7 +36,7 @@ async function crawlData() {
     }
 }
 crawlData()
-// Gọi hàm crawlData để bắt đầu crawl
+// Gọi hàm crawlData để bắt đầu craw
 module.exports = [
     "The Fool",
     "The Magician",

@@ -10,14 +10,14 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 module.exports = {
-    query: (req, res) => {
+    query: async (req, res) => {
         if(req.body=={}) {
           return   res.send({message: 'no data'})
         } else {
             let ask = req.body.ask;
             let card = req.body.card;
         
-            const response =  openai.createChatCompletion({
+            const response = await openai.createChatCompletion({
             model: 'gpt-3.5-turbo',
             messages: [
               { role: 'system', content: 'You are a helpful assistant.' },
@@ -27,6 +27,7 @@ module.exports = {
         
           return res.json(response.data.choices[0].message.content) ;
         }
+        
         
     }
 }
