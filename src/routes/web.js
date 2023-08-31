@@ -30,7 +30,7 @@ let initWebRoutes = (app) => {
     router.get("/tarot", (req, res) => {
         let randomElements = getRandomElements(Data, 3);
         let randomElementsString = randomElements.join(', ');
-        res.send(randomElementsString)
+        res.send({cards: randomElementsString})
     });
     router.get("/setup", homepageController.setupGetStart);
     router.post("/query", openAiResponse.query)
