@@ -16,6 +16,7 @@ function parseOrderId(description) {
     return parseInt(orderCode.substr(prefixLength));
   }
 function handleTransactions(transactions, res) {
+    console.log(transactions);
     for (const transaction of transactions) {
       const description = transaction.description;
       const orderId = parseOrderId(description);
