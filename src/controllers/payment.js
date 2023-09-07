@@ -1,7 +1,7 @@
 const ORDER_MONEY = 100000;
 const ACCEPTABLE_DIFFERENCE = 10000;
 const MEMO_PREFIX = 'DH';
-HEADER_SECURE_TOKEN = "eogrBiWqaq"
+const HEADER_SECURE_TOKEN = "eogrBiWqaq"
 function handleTransactions(transactions, res) {
     console.log(transactions[0].transaction_description,transactions[0].transaction_amount);
     
