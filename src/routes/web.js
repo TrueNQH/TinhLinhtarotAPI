@@ -1,6 +1,6 @@
 import express from "express";
 import homepageController from "../controllers/homepageController";
-
+import payment from "../controllers/payment";
 import chatBotController from "../controllers/chatBotController";
 import chatBotService from "../services/chatBotService";
 import Data from "../controllers/crawlData";
@@ -24,7 +24,7 @@ function getRandomElements(array, count) {
     return shuffledArray.slice(0, count);
   }
 let initWebRoutes = (app) => {
-    
+    router.post('/payment_handler', payment.webhookConfig)
 
     // test connect database and generate tarrot
     router.get("/tarot", (req, res) => {
