@@ -1,3 +1,7 @@
+const ORDER_MONEY = 100000;
+const ACCEPTABLE_DIFFERENCE = 10000;
+const MEMO_PREFIX = 'DH';
+const HEADER_SECURE_TOKEN = 'eogrBiWqaq';
 function parseOrderId(description) {
     const re = new RegExp(`${MEMO_PREFIX}\\d+`, 'mi');
     const matches = description.match(re);
@@ -44,7 +48,7 @@ function handleTransactions(transactions, res) {
   }
 
 module.exports = {
-    payment: (req, res) => {
+    webhookConfig: (req, res) => {
   const jsonBody = req.body;
 
   if (!jsonBody) {
