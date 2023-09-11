@@ -36,7 +36,7 @@ let initWebRoutes = (app) => {
     router.post("/query", openAiResponse.query)
     
 
-    
+    router.get("/privacypolicy", homepageController.getPrivacyPolicy);
     //
     router.get("/", homepageController.getHomepage);
     router.get("/webhook", chatBotController.getWebhook);

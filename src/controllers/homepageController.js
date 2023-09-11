@@ -18,6 +18,9 @@ let getHomepage = (req, res) => {
 let getFacebookUserProfile = (req, res) => {
     return res.render("profile.ejs");
 };
+let getPrivacyPolicy = (req, res) => {
+    return res.render("privacypolicy.ejs");
+};
 
 let setUpUserFacebookProfile = async (req, res) => {
     // Send the HTTP request to the Messenger Platform
@@ -62,4 +65,5 @@ module.exports = {
     getFacebookUserProfile: getFacebookUserProfile,
     setUpUserFacebookProfile: setUpUserFacebookProfile,
     setupGetStart: setupGetStart,
+    getPrivacyPolicy:getPrivacyPolicy
 };
