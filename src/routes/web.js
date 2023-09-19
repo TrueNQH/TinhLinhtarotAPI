@@ -3,7 +3,6 @@ import homepageController from "../controllers/homepageController";
 import payment from "../controllers/payment";
 import chatBotController from "../controllers/chatBotController";
 import chatBotService from "../services/chatBotService";
-import DataTarot from "../controllers/crawlData";
 import openAiResponse from "../controllers/openAiResponse";
 const Daycharacter = require("../controllers/dataCharacter")
 const bodyParser = require('body-parser')
@@ -19,7 +18,7 @@ let initWebRoutes = (app) => {
     router.post('/payment_handler', payment.webhookConfig)
 
     // test connect database and generate tarrot
-    router.get("/tarot", DataTarot.getData);
+   
     router.get("/setup", homepageController.setupGetStart);
     router.post("/query", openAiResponse.query);
     router.post("/daycharacter", Daycharacter.post);

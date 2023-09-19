@@ -88,15 +88,7 @@ const dataCard = [
         
         return shuffledArray.slice(0, count);
       }
-      
-      module.exports = {
-        getData: (req, res) => {
-            let randomElements = getRandomElements(dataCard, 3);
+      let randomElements = getRandomElements(dataCard, 3);
             let randomElementsString = randomElements.join(', ');
-            res.send(
-                {
-                    message: "success",
-                    cards: randomElementsString
-                })
-        }
-      }
+      module.exports = randomElementsString
+      

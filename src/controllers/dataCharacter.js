@@ -1,3 +1,5 @@
+import DataTarot from "../controllers/crawlData";
+
 const daycharacter = {
 "21/3": "Có tham vọng, quyết đoán, giỏi về tiền bạc, nên làm những công việc có liên quan đến phương diện này là tốt nhất",
 "22/3": "Tính cách độc lập, có trực giác tốt Tránh bốc đồng, phải khắc phục tính khí lỗ mãng Rất thực tế, người rất có tổ chức, đầu óc phong phú, những điều đó giúp ích cho việc trở thành nhà khoa học hoặc nhà toán học Có máu kinh doanh, thực tế và giàu lòng từ bi",
@@ -395,6 +397,7 @@ const chuoiKetQua = ngayDaChuyenDoi + "/" + thangDaChuyenDoi;
 
         res.send({
             mesage :'success',
+            cards: DataTarot,
             data: daycharacter[chuoiKetQua]
         })
     }
