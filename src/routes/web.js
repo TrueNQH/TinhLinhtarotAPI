@@ -3,8 +3,9 @@ import homepageController from "../controllers/homepageController";
 import payment from "../controllers/payment";
 import chatBotController from "../controllers/chatBotController";
 import chatBotService from "../services/chatBotService";
-import Data from "../controllers/crawlData";
+import DataTarot from "../controllers/crawlData";
 import openAiResponse from "../controllers/openAiResponse";
+const Daycharacter = require("../controllers/dataCharacter")
 const bodyParser = require('body-parser')
 const app = express()
 require("dotenv").config();
@@ -13,27 +14,15 @@ app.use(bodyParser.json())
 
 
 let router = express.Router();
-function getRandomElements(array, count) {
-    const shuffledArray = [...array];
-    
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-    }
-    
-    return shuffledArray.slice(0, count);
-  }
+
 let initWebRoutes = (app) => {
     router.post('/payment_handler', payment.webhookConfig)
 
     // test connect database and generate tarrot
-    router.get("/tarot", (req, res) => {
-        let randomElements = getRandomElements(Data, 3);
-        let randomElementsString = randomElements.join(', ');
-        res.send({cards: randomElementsString})
-    });
+    router.get("/tarot", DataTarot.getData);
     router.get("/setup", homepageController.setupGetStart);
-    router.post("/query", openAiResponse.query)
+    router.post("/query", openAiResponse.query);
+    router.post("/daycharacter", Daycharacter.post);
     
 
     router.get("/privacypolicy", homepageController.getPrivacyPolicy);

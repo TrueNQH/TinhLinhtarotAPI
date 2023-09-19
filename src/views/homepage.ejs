@@ -1,99 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Set up the Restaurant Chatbot with Messenger</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Cảm ơn bạn đã ghé thăm!</title>
+    <style>
+      /* CSS được đặt trong thẻ <style> */
 
-    <!-- Bootstrap 4 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/js/profile.js"></script>
-</head>
-<body>
+      /* CSS chung cho mọi loại màn hình */
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f5f5f5;
+      }
 
-<div class="container">
-    <img src="https://res.cloudinary.com/dt0kv3yml/image/upload/v1692518329/85c41de6078dc52c30666a7b9aeea7d5_xp0mag.gif" alt="">
-    
-    
+      .container {
+        text-align: center;
+      }
+
+      .thanks-text {
+        font-size: 24px;
+        color: #333;
+      }
+
+      .heart {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border-radius: 50%;
+        position: relative;
+        animation: heartbeat 1s infinite;
+      }
+
+      @keyframes heartbeat {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* CSS cho màn hình máy tính */
+      @media screen and (min-width: 1024px) {
+        .heart {
+          width: 150px;
+          height: 150px;
+        }
+      }
+
+      /* CSS cho màn hình máy tính bảng */
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .heart {
+          width: 120px;
+          height: 120px;
+        }
+        .thanks-text {
+          font-size: 18px;
+        }
+      }
+
+      /* CSS cho điện thoại di động */
+      @media screen and (max-width: 767px) {
+        .heart {
+          width: 80px;
+          height: 80px;
+        }
+        .thanks-text {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
     <div class="container">
-        <div class="row">
-            <div class="mt-3">
-               <div class="mt-3"> 
-                   This is a simple page, a guide to test a Facebook Messenger Bot
-                   (demo the restaurant Messenger Bot - click on the Messenger Icon at the bottom right)
-               </div>
-                <div style="color: red">Please click this button below to finish setting up the Facebook Persistent menu:</div>
-                    <button type="button" class="btn btn-primary" id="submitFacebookProfile"> Submit </button>
-                </div>
-                <div class="mt-3">
-                    Test my bot on Messenger (alway works): 👉  <a target="_blank" href="http://m.me/restaurantHaryPhamDev">m.me/restaurantHaryPhamDev</a>
-                </div>
-                <br/>
-                <div><b>What can this bot do?</b>
-                    <ul>
-                        <li>Showing menu (lunch, dinner, pub menu), showing rooms.</li>
-                        <li>Take a reservation.</li>
-                        <li>Automatic understand a message is a datetime or a phone number (use for taking reservation)</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <b>New update:</b>
-                    <ul>
-                        <li>
-                            Add the button: "Guide to use this bot".
-                        </li>
-                        <li>Turn on/off typing for the bot. Mark conversation is read.</li>
-                        <li>Handle the sentences with meaning "greetings", "thanks" and "bye".(support English, Spanish, Germany and France).
-                            Eg: test the bot with these sentences: What's up or Hola or Hallo or Bonjour.</li>
-
-                    </ul>
-                </div>
-                <div>
-                    <span style="color: red">For more information, please visit my youtube channel (or facebook page) to watch awesome videos to build amazing bots.</span><br/>
-                    Youtube channel: 👉  <a title="Click here to visit my youtube channel" href="https://www.youtube.com/channel/UCHqJxLo7mKam9GKqqwr2wfA?sub_confirmation=1" target="_blank">Click here</a><br/>
-                     Facebook page: 👉  <a title="Click here to visit my facebook page" href="https:facebook.com/haryphamdev" target="_blank">Click here</a><br/>
-                </div>
-
-                <div class="mt-3">
-                    <b>Video demo how this bot works:</b>
-                    <div class="mt-2">
-                        <iframe width="853" height="480" src="https://www.youtube.com/embed/SIi3fGkfpk8?list=PLNOjHC_BXrfB8DcOCHtKPWPMl4t9PG5cI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <h1 class="thanks-text">
+        Cảm ơn bạn đã ghé thăm!<br />
+        Quay lại chatbot để sủ dụng nhée
+      </h1>
+      <script
+        src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+        type="module"
+      ></script>
+      <dotlottie-player
+        src="https://lottie.host/cc1ce228-3034-41bb-8e41-94fbd9ff7d58/zipO08CoAN.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px"
+        direction="1"
+        mode="normal"
+        loop
+        autoplay
+      ></dotlottie-player>
     </div>
-
-
-
-    <!-- Load Facebook SDK for JavaScript --- Facebook Chat Plugin -->
-    <div id="fb-root"></div>
-    <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                xfbml            : true,
-                version          : 'v6.0'
-            });
-        };
-
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-
-    <!-- Your Chat Plugin code -->
-    <div class="fb-customerchat"
-         attribution=setup_tool
-         page_id="<%= fbPageId %>">
-    </div>
-</div>
-</body>
+  </body>
 </html>
